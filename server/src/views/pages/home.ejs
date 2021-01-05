@@ -1,0 +1,77 @@
+<%-include ('../partials/header.ejs') %> 
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-sm-12 ">
+            <div class="container my-1"> 
+                <h1>Cotizaciones realizadas</h1>
+                    <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Total</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% for( let i = 0; i < data.length; i++ ) { %>
+                            <tr>
+                                <th><%= data[i].id %></th>
+                                <td><%= data[i].fecha.toUTCString().split('GMT')[0] %></td>
+                                <td><%= data[i].nombre %></td>
+                                <td><%= data[i].total %></td>
+                                <td><a href="/cotizacion/<%= data[i].id %>" class="btn btn-info">Ver</a></td>    
+                            </tr>
+                              <% } %>
+                        </tbody>
+                      </table>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-12 mb-3">
+            <div class="card shadow rounded">
+                <div class="card-body">
+                    <form action="/">
+                        <div class="container">
+                            <h3>Nueva cotizacion</h3>
+                            <div class="p-2">
+                                <select name="nombre" class="form-control" id="">
+                                    <% for( let i = 0; i < data2.length; i++ ) { %>
+                                        <option value="<%= data2[i].nombre %>"><%= data2[i].nombre %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <!-- <div class="p-2">
+                                <input type="text" class="form-control" name="tipo" placeholder="Tipo de cliente">
+                            </div>
+                            <div class="p-2">
+                                <input type="text" class="form-control" name="ruc" placeholder="RUC de cliente">
+                            </div>
+                            <div class="p-2">
+                                <input type="text" class="form-control" name="tel" placeholder="Telefono de cliente">
+                            </div>
+                            <div class="p-2">
+                                <input type="text" class="form-control" name="correo" placeholder="Correo de cliente">
+                            </div> -->
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-6 py-2">
+                                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                                    </div>
+                                    <div class="col-6 py-2">
+                                        <button type="reset" class="btn btn-danger btn-block">Borrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+<%-include ('../partials/footer.ejs') %> 

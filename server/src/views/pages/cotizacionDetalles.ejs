@@ -1,0 +1,71 @@
+<%-include ('../partials/header.ejs') %> 
+<div class="container-fluid align-content-center">
+    <div class="container col-md-10 col-sm-12 mb-3">
+        <div class="card shadow rounded">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12">
+                            <header class="mb-2">
+                                <h2 class="d-inline font-weight-bold">Cotizacion No. <%= data1[0].cotizacion_id %></h2>
+                                <h5 class="d-inline mx-2">Fecha: <%= data1[0].fecha.toUTCString().split('GMT')[0] %></h5>
+                            </header>    
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <h3>Cliente: <%= data1[0].nombre %>  </h3>            
+                                        <h3>Tipo de cliente: <%= data1[0].tipo %> </h3>            
+                                        <h3>Contacto: 
+                                            <ul class="my-1">
+                                                <li><h4><%= data1[0].contacto %></h4></li>
+                                                <li><h4><%= data1[0].telefono %></h4></li>
+                                                <li><h4><%= data1[0].correo %></h4></li>
+                                            </ul>
+                                        </h3>     
+                                        <h3>Total: <%= data1[0].total_cotizacion%> </h3>   
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <h3>Servicios a contratar: 
+                                            <ul class="my-1">
+                                                <% for( let i = 0; i < data2.length; i++ ) { %>
+                                                    <li>
+                                                        <h4>Tipo de servicio: <%=data2[i].tipo%></h4>
+                                                        <ul>
+                                                            <li><h5>Dias pautados: <%=data2[i].dias_pautados%></h5></li>
+                                                            <li><h5>Precio X dia: B/. <%=data2[i].precio_dia%></h5></li>
+                                                            <li><h5>Emisora: <%=data2[i].emisora%></h5></li>
+                                                            <li><h5>Fecha de inicio: <%=data2[i].fecha_inicio.toUTCString().split('GMT')[0]%></h5></li>
+                                                            <li><h5>Fecha de finalizacion: <%=data2[i].fecha_final.toUTCString().split('GMT')[0]%></h5></li>
+                                                            <li><h5>Sub total: B/.<%=data2[i].Total%></h5></li>  
+                                                            <ui><h6>Detalles: <%=data2[i].detalles%></h6></ui>
+                                                        </ul>
+                                                    </li>
+                                                <% } %>
+                                                
+                                            </ul>
+                                        </h3>           
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <span class="mx-2">
+                                <a class="btn btn-primary btn-lg btn-block">Generar</a>
+                            </span>
+                            <span class="mx-2">
+                                <button id="backward" class="btn btn-warning btn-lg btn-block">Atras</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const back = document.getElementById('backward');
+    back.addEventListener('click',() => {
+        history.back()
+    })
+</script>
+<%-include ('../partials/footer.ejs') %> 

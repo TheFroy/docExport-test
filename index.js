@@ -19,7 +19,7 @@
                  format: 'a4'  
              });  
             doc.addImage(img, 'JPEG', 20, 20);  
-            doc.save('Bhavdip-html-to-pdf.pdf');  
+            doc.save('Cotizacion-radial.pdf');  
             form.width(cache_width);  
         });  
     }  
@@ -112,6 +112,7 @@ const getValues = () => {
     }
 }
 
+// Boton para setear valores
 document.getElementById('myBtn').addEventListener('click', function (e) {
     
     document.getElementById('create_pdf').className = "btn btn-success btn-lg mx-3"
@@ -120,7 +121,7 @@ document.getElementById('myBtn').addEventListener('click', function (e) {
 
 })
 
-
+// Boton de eliminar 
 document.getElementById('delBtn').addEventListener('click', function (e) {
     document.getElementById('create_pdf').className = "btn btn-success btn-lg d-none"
     varContent = []
