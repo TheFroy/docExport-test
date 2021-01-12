@@ -1,5 +1,9 @@
 <%-include ('../partials/header.ejs') %> 
-
+<% if (message.length > 0) { %>
+    <div class="alert alert-success" role="alert">
+        <%= message %> 
+    </div>
+<% } %>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-sm-12 ">

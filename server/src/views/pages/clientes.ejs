@@ -1,5 +1,11 @@
 <%-include ('../partials/header.ejs') %> 
-
+<% message.forEach(msg => { %>
+    <% if (msg.length > 0) { %>
+        <div class="alert alert-success">
+            <%= msg %> 
+        </div>
+    <% } %>
+<% }) %>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-8 col-sm-12 ">
@@ -92,6 +98,7 @@
             </div>
         </div>
     </div>
+    
 <script>
 
 
