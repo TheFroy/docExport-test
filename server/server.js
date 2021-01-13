@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, '/src/views/pages'))
 //middleware
 app.use(session({
     secret: 'secret',
-    cookie: {maxAge:60000},
+    cookie: {maxAge:Date.now() + 3.6e6},
     resave: false,
     saveUninitialized: false
 }));
