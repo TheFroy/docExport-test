@@ -1,0 +1,34 @@
+<%-include ('../partials/header.ejs') %> 
+
+<div class="container-fluid align-content-center">
+    <div class="container col-md-4 col-sm-12 mb-4">
+        <div class="card shadow rounded">
+            <div class="card-body">
+                <form action="/servicios/emisora/upd/<%= data.id %>" method="post">
+                    <section class="border-bottom py-2">
+                        <h1 class="p-1 text-center">Actualizar datos de Emisora</h1>
+                    </section>
+                    <div class="row justify-content-center">
+                            <div class="col-md-8 col-sm-10 my-2">
+                                <input type="text" class="form-control" value="<%= data.nombre %>" placeholder="Nombre" name="nombre">
+                            </div>
+                            <div class="col-md-8 col-sm-10 my-2">
+                                <textarea type="text" class="form-control" rows="3"  name="frecuencias"><%= data.frecuencias %></textarea>
+                            </div>
+                            <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-6 py-2" id="test">
+                                    <button type="submit"class="btn btn-primary btn-block">Guardar</button>
+                                </div>
+                                <div class="col-6 py-2">
+                                    <a href="/servicios" class="btn btn-danger btn-block">Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+<%-include ('../partials/footer.ejs') %> 

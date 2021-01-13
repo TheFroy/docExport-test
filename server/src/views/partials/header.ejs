@@ -17,13 +17,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item " id="inicio">
+          <li class="nav-item " id="cotizacion">
             <a class="nav-link" href="/cotizacion">Inicio <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item"id="cliente">
+          <li class="nav-item"id="clientes">
             <a class="nav-link"  href="/clientes">Clientes</a>
           </li>
-          <li class="nav-item"id="usuario">
+          <li class="nav-item"id="servicios">
+            <a class="nav-link"  href="/servicios">Servicios</a>
+          </li>
+          <li class="nav-item"id="usuarios">
             <a class="nav-link"  href="/usuarios">Usuarios</a>
           </li>
         </ul>
@@ -34,21 +37,22 @@
     </div>
   </nav>
   <script>
-    if (window.location.href.includes('clientes')){
-      document.getElementById('cliente').className = "nav-link active"
-      document.getElementById('inicio').className = "nav-link "
-      document.getElementById('usuario').className = "nav-link "
-  
-    }
-    else if (window.location.href.includes('usuarios')){
-      document.getElementById('cliente').className = "nav-link "
-      document.getElementById('inicio').className = "nav-link "
-      document.getElementById('usuario').className = "nav-link active"
-    }
-    else{
-      document.getElementById('inicio').className = "nav-link active"
-      document.getElementById('usuario').className = "nav-link "
-      document.getElementById('cliente').className = "nav-link "
-    }
+    const navItems = [
+      document.getElementById('clientes'),
+      document.getElementById('cotizacion'),
+      document.getElementById('usuarios'),
+      document.getElementById('servicios')
+    ]
+
+    navItems.forEach(item => {
+      if(window.location.href.includes(item.id)){
+        item.className = "nav-link active"
+      }
+      else{
+        item.className = "nav-link"
+      }
+    });
+
+
   </script>
 <body>

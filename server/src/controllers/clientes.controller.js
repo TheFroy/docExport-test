@@ -66,7 +66,7 @@ clientes.setUpd = (req,res) => {
         const {id} = req.params
         req.getConnection((err, conn) => {
             conn.query("SELECT * FROM clientes where id = ?", [id], (err, rows) => {
-                conn.query("select cotizacion.id, cotizacion.fecha, clientes.nombre, SUM(detalle.total) as 'total' from ((cotizacion inner join clientes on cotizacion.id_cliente = clientes.id) inner join detalle on cotizacion.id = detalle.id_cotizacion) WHERE clientes.id = ? group by cotizacion.id;", [id], (err, rows2) => {
+                conn.query("select cotizacion.id, cotizacion.fecha, clientes.nombre, SUM(detalle.dias_pautados*productos.precio_dia) as 'total' from clientes LEFT JOIN cotizacion ON cotizacion.id_cliente = clientes.id INNER JOIN detalle ON cotizacion.id = detalle.id_cotizacion INNER JOIN productos ON productos.id = detalle.id_producto INNER JOIN emisoras ON productos.id_emisora = emisoras.id WHERE clientes.id = ? group by cotizacion.id;", [id], (err, rows2) => {
                     res.render('clientesUpd', {
                         data:rows['0'],
                         data2: rows2

@@ -11,33 +11,35 @@
         <div class="col-md-8 col-sm-12">
             <div class="container-fluid">
                 <h1>Usuarios</h1>
-                <table class="table table-">
-                    <thead>
-                        <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Rol</th>
-                        <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for( let i = 0; i < data.length; i++ ) { %>
-                            <tr>    
-                                <th scope="row"> <%= data[i].id %></th>
-                                <td><%= data[i].nombre %></td>
-                                <% if (data[i].rol == 1) { %>
-                                    <td>Administrador</td>
-                                <% } else {%>
-                                    <td>Empleado</td>
-                                <% } %>
-                                <td class="text-center">
-                                    <a href="usuarios/upd/<%= data[i].id %> " class="btn btn-primary my-1">Editar</a>
-                                    <a href="usuarios/del/<%= data[i].id %> " class="btn btn-danger my-1">Eliminar</a>
-                                </td>
+                <div class="container" style="overflow-y: auto; max-height: 20rem">
+                    <table class="table table-">
+                        <thead>
+                            <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col"></th>
                             </tr>
-                        <% } %>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <% for( let i = 0; i < data.length; i++ ) { %>
+                                <tr>    
+                                    <th scope="row"> <%= data[i].id %></th>
+                                    <td><%= data[i].nombre %></td>
+                                    <% if (data[i].rol == 1) { %>
+                                        <td>Administrador</td>
+                                    <% } else {%>
+                                        <td>Empleado</td>
+                                    <% } %>
+                                    <td class="text-center">
+                                        <a href="usuarios/upd/<%= data[i].id %> " class="btn btn-primary my-1">Editar</a>
+                                        <a href="usuarios/del/<%= data[i].id %> " class="btn btn-danger my-1">Eliminar</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-4 col-sm-12 mb-3">

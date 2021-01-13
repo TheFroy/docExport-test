@@ -53,9 +53,9 @@ cotizacion.add = (req, res) => {
            // CODIGO COMENTADO PARA QUE NO SE AGREGUEN DATOS DE PRUEBA
             const query = conn.query("insert into cotizacion set ?", [data], (err, rows1)=>{
                 conn.query("SELECT id FROM cotizacion ORDER BY id DESC LIMIT 1 ", (err, rows2)=>{
-                    console.log(data);
-                    req.flash('success','Cotizacion añadida, agregar detalles de cotizacion')
+                    console.log(rows2[0].id);
                     res.redirect("/cotizacion/add/detalle/"+rows2[0].id)
+                    req.flash('success','Cotizacion añadida, agregar detalles de cotizacion')
                 }) 
             })     
        }
@@ -69,16 +69,13 @@ cotizacion.detalle = (req, res) => {
     const {id} = req.params
     req.getConnection((err, conn) => {
         if (!err){
-            const query = conn.query("SELECT id, tipo from productos", (err, rows1) => {
-                conn.query("SELECT nombre from clientes WHERE id = ?",[id], (err, rows2)=>{
-                    res.render("detallesAdd", {
-                        message: req.flash('success'),
-                        id_cotizacion: id,
-                        productos: rows1,
-                        cliente: rows2[0].nombre
-                    })
-
-                })
+             conn.query("SELECT id, tipo from productos", (err, rows1) => {
+                 res.render("detallesAdd", {
+                     message: req.flash('success'),
+                     id_cotizacion: id,
+                     productos: rows1,
+                     // cliente: rows2[0].nombre
+                 })
             })
         }
         else{
