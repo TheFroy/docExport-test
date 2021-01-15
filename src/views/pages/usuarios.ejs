@@ -23,19 +23,22 @@
                         </thead>
                         <tbody>
                             <% for( let i = 0; i < data.length; i++ ) { %>
-                                <tr>    
-                                    <th scope="row"> <%= data[i].id %></th>
-                                    <td><%= data[i].nombre %></td>
-                                    <% if (data[i].rol == 1) { %>
-                                        <td>Administrador</td>
-                                    <% } else {%>
-                                        <td>Empleado</td>
-                                    <% } %>
-                                    <td class="text-center">
-                                        <a href="usuarios/upd/<%= data[i].id %> " class="btn btn-primary my-1">Editar</a>
-                                        <a href="usuarios/del/<%= data[i].id %> " class="btn btn-danger my-1">Eliminar</a>
-                                    </td>
-                                </tr>
+                                <% if (data[i].nombre != "root") { %>
+                                    <tr>    
+                                        <th scope="row"> <%= data[i].id %></th>
+                                        <td><%= data[i].nombre %></td>
+                                        <% if (data[i].rol == 1) { %>
+                                            <td>Administrador</td>
+                                        <% } else {%>
+                                            <td>Empleado</td>
+                                        <% } %>
+                                        <td class="text-center">
+                                            <a href="usuarios/upd/<%= data[i].id %> " class="btn btn-primary my-1">Editar</a>
+                                            <a href="usuarios/del/<%= data[i].id %> " class="btn btn-danger my-1">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                 
+                                <% } %>
                             <% } %>
                         </tbody>
                     </table>
