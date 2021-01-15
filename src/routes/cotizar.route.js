@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const cotizarController = require('../controllers/cotizar.controller')
-const pdfController = require('../controllers/pdf.controller')
 
 router.get('/',cotizarController.read)
 
@@ -13,5 +12,4 @@ router.get('/add/detalle/:id', cotizarController.detalle)
 
 router.post('/add/detalle/:id', cotizarController.detallesAdd)
 
-router.get('/pdf/generar/:id_cotizacion', pdfController.generate)
 module.exports = router
