@@ -1,0 +1,121 @@
+<%-include ('../partials/header.ejs') %>
+<% message.forEach(msg => { %>
+    <% if (msg.length > 0) { %>
+        <div class="alert alert-success">
+            <%= msg %> 
+        </div>
+    <% } %>
+<% }) %> 
+<div class="container-fluid p-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h1>Servicios</h1>
+                <div class="card">
+                    <div class="card-body ">
+                        <div class="container">
+                            <h3>Nuevo Servicio</h3>
+                            <form action="/servicios/add" method="POST">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4 col-sm-10 my-2">
+                                        <input type="text" class="form-control" placeholder="Nombre" name="tipo">
+                                    </div>
+                                    <div class="col-md-4 col-sm-10 my-2">
+                                        <input type="text" class="form-control" placeholder="Precio por dia B/." name="precio_dia">
+                                    </div>
+                                    <div class="col-md-4 col-sm-10 my-2">
+                                        <!-- <label for=""></label> -->
+                                        <select type="text" class="form-control"  name="id_emisora">
+                                            <% emisoras.forEach(e => { %>
+                                                <option value="<%= e.id %> "><%= e.nombre %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 my-2">
+                                        <button type="submit"class=" btn-block text-center btn btn-primary">Añadir</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                                
+                <div class="container mt-4" style="overflow-y: auto; max-height: 300px;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                           <th scope="col">Nombre</th>
+                           <th scope="col">Precio x dia</th>
+                           <th scope="col">Emisora</th>
+                           <th scope="col"></th>
+                           
+                         </tr>
+                        </thead>
+                        <tbody >
+                            <% productos.forEach(producto => { %>
+                                <tr>
+                                    <td><%= producto.id %> </td>
+                                    <td><%= producto.tipo %> </td>
+                                    <td>B/. <%= producto.precio_dia %> </td>
+                                    <td><%= producto.emisora %> </td>
+                                    <td><a href="/servicios/upd/<%= producto.id %> " class="btn btn-success rounded">Editar</a></td>
+                                </tr>
+                            <% }) %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 border-left">
+                <h1>Emisoras</h1>
+                <div class="card">
+                    <div class="card-body ">
+                        <div class="container">
+                            <h3>Nueva Emisora</h3>
+                            <form action="/servicios/emisora/add" method="POST">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8 col-sm-10 my-2">
+                                        <input type="text" class="form-control" placeholder="Nombre" name="nombre">
+                                    </div>
+                                    <div class="col-md-8 col-sm-10 my-2">
+                                        <textarea type="text" class="form-control" rows="3" placeholder="Frecuencias" name="frecuencias"></textarea>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 my-2">
+                                        <button type="submit"class=" btn-block text-center btn btn-primary">Añadir</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                                
+                <div class="container mt-4" style="overflow-y: auto; max-height: 300px;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                           <th scope="col">Nombre</th>
+                           <th scope="col">Frecuencias</th>
+                           <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                            <% emisoras.forEach(emisora => { %>
+                                <tr>
+                                    <td><%= emisora.id %> </td>
+                                    <td><%= emisora.nombre %> </td>
+                                    <td> <%= emisora.frecuencias %> </td>
+                                    <td><a href="/servicios/emisora/upd/<%= emisora.id %> " class="btn btn-success rounded">Editar</a></td>
+                                </tr>
+                            <% }) %>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%-include ('../partials/footer.ejs') %> 
