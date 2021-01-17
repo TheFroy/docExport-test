@@ -112,4 +112,26 @@ cotizacion.detallesAdd = (req, res) => {
 
 }
 
+cotizacion.add_bonificacion = (req, res) => {
+        const data = req.body
+        const {id} = req.params
+        req.getConnection((err, conn) =>{
+           if(!err){
+               // CODIGO COMENTADO PARA QUE NO SE AGREGUEN DATOS DE PRUEBA
+                const query = conn.query("insert into cotizacion set ? where id = ?", [data,id], (err, rows1)=>{
+                    if (!err) {
+                        res.redirect('/cotizacion/'+id)
+                    }
+                    else{
+                        res.json(err)
+                    }
+                })     
+           }
+           else{
+               res.json(err)
+           }
+        })
+    
+}
+
 module.exports = cotizacion

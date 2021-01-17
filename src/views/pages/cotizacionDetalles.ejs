@@ -1,69 +1,128 @@
 <%-include ('../partials/header.ejs') %> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-<div class="container-fluid align-content-center">
-    <div class="container col-md-10 col-sm-12 mb-3">
-        <div class="card shadow rounded canvas_div_pdf">
-            <div class="card-body">
-                <div class="container">
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar bonificacion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/cotizacion/add_bonificacion/ " method="post">
+        <div class="modal-body">
+            <div class="container">
+                    <input type="text" class="form-control" placeholder="10 cuñas por dia, 3 dias adicionales...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Añadir bonificacion</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-md-4 my-1">
+            <button id="pdf" class="btn btn-primary btn-lg btn-block">Generar</button>
+        </div>
+        <div class="col-md-4 my-1">
+            <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+                Agregar bonificacion
+            </button> 
+        </div>
+        <div class="col-md-4 my-1">
+            <button id="backward" class="btn btn-danger btn-lg btn-block">Atras</button>
+        </div>
+    </div>
+</div>
+
+<div class="container p-4 mb-3 card shadow " style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+    <div class="card-body canvas_div_pdf">
+        <header class="mb-4 pb-4">
+            <h1 class="text-center"></h1>
+            <div class="container">
+                <div class="row ">
+                    <div class="col-6 ">
+                        <section class='font-weight-bold text-left'>
+                            <h1 style="color:darkred" class="font-weight-bold">Star Production's</h1>
+                        </section>
+                    </div>
+                    <div class="col-6">
+                        <section class='font-weight-bold text-right'>
+                            <!-- <h4>Star Production's</h4> -->
+                            <h4>Tel.</h4>
+                            <h4>Fax.</h4>
+                            <h4>Direccion 
+                                <h5>Villa mercedes</h5>
+                            </h4>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <h1 class="text-left border-bottom font-weight-bold  pb-2" style="color:darkred">Cotización No. <%= data1[0].cotizacion_id %></h1>
+            <div class="container ">
+                <div class="container border-bottom my-4 pb-4">
                     <div class="row">
-                        <div class="col-md-9 col-sm-12">
-                            <header class="mb-2">
-                                <h2 class="d-inline font-weight-bold">Cotizacion No. <%= data1[0].cotizacion_id %></h2>
-                                <h5 class="d-inline mx-2">Fecha: <%= data1[0].fecha.toUTCString().split('GMT')[0] %></h5>
-                            </header>    
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <h3>Cliente: <%= data1[0].nombre %>  </h3>            
-                                        <h3>Tipo de cliente: <%= data1[0].tipo %> </h3>            
-                                        <h3>Contacto: 
-                                            <ul class="my-1">
-                                                <li><h4><%= data1[0].contacto %></h4></li>
-                                                <li><h4><%= data1[0].telefono %></h4></li>
-                                                <li><h4><%= data1[0].correo %></h4></li>
-                                            </ul>
-                                        </h3>     
-                                        <h3>Total: B/. <%= data1[0].total_cotizacion%> </h3>   
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <h3>Servicios a contratar: 
-                                            <ul class="my-1">
-                                                <% for( let i = 0; i < data2.length; i++ ) { %>
-                                                    <li>
-                                                        <h4>Tipo de servicio: <%=data2[i].tipo%></h4>
-                                                        <ul>
-                                                            <li><h5>Dias pautados: <%=data2[i].dias_pautados%></h5></li>
-                                                            <li><h5>Precio X dia: B/. <%=data2[i].precio_dia%></h5></li>
-                                                            <li><h5>Emisora: <%=data2[i].emisora%></h5></li>
-                                                            <li><h5>Fecha de inicio: <%=data2[i].fecha_inicio.toUTCString().split('GMT')[0]%></h5></li>
-                                                            <li><h5>Fecha de finalizacion: <%=data2[i].fecha_final.toUTCString().split('GMT')[0]%></h5></li>
-                                                            <li><h5>Sub total: B/.<%=data2[i].Total%></h5></li>  
-                                                            <ui><h6>Detalles: <%=data2[i].detalles%></h6></ui>
-                                                        </ul>
-                                                    </li>
-                                                <% } %>
-                                                
-                                            </ul>
-                                        </h3>           
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-6">
+                            <h5>Fecha de cotizacion: <%= data1[0].fecha.toUTCString().split('GMT')[0] %></h5>
+                            <h5>Bonificacion: <%= data1[0].bonificacion%></h5>
+                            <h5>Total: B/. <%= data1[0].total_cotizacion%></h5>
                         </div>
-                        <div class="col-md-3 col-sm-12">
-                            <span class="mx-2">
-                                <button id="pdf" class="btn btn-primary btn-lg btn-block">Generar</button>
-                            </span>
-                            <span class="mx-2">
-                                <button id="backward" class="btn btn-warning btn-lg btn-block">Atras</button>
-                            </span>
+                        <div class="col-6">
+                            <h5>Cliente: <%= data1[0].nombre %></h5>
+                            <h5>Tipo: <%= data1[0].tipo %></h5>
+                            <h5>Contacto: <%= data1[0].contacto %></h5>
+                            <h5>Telefono: <%= data1[0].telefono %></h5>
+                            <h5>Correo: <%= data1[0].correo %></h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="container my-4 py-4">
+            <div class="row">
+                <% for( let i = 0; i < data2.length; i++ ) { %>
+                <div class="col-md-6 col-sm-12">
+                        
+                            <h4>Tipo de servicio: <%=data2[i].tipo%></h4>
+                            <ul>
+                                <li><h5>Dias pautados: <%=data2[i].dias_pautados%></h5></li>
+                                <li><h5>Precio X dia: B/. <%=data2[i].precio_dia%></h5></li>
+                                <li><h5>Emisora: <%=data2[i].emisora%></h5></li>
+                                <li><h5>Fecha de inicio: <%=data2[i].fecha_inicio.toUTCString().split('GMT')[0]%></h5></li>
+                                <li><h5>Fecha de finalizacion: <%=data2[i].fecha_final.toUTCString().split('GMT')[0]%></h5></li>
+                                <li><h5>Sub total: B/.<%=data2[i].Total%></h5></li>  
+                                <ui><h5 class="mt-3" style="font-size:16px">Detalles: <%=data2[i].detalles%></h5></ui>
+                            </ul>
+                        </div>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="container border-top py-3 text-right">
+            <h2>Bonificacion: <%= data1[0].bonificacion%></h2>
+            <h2>Total: <%= data1[0].total%></h2>
+        </div>
     </div>
 </div>
+
+
+
+
 <script>
     const back = document.getElementById('backward');
     back.addEventListener('click',() => {
@@ -98,7 +157,7 @@
           pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
         }
         
-          pdf.save("HTML-Document.pdf");
+          pdf.save("Cotizacion # <%=data1[0].cotizacion_id %>.pdf");
           });
       })
 
