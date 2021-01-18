@@ -51,7 +51,7 @@ app.use('/usuarios',usuarioRoute)
 app.use('/servicios',serviciosRoute)
 
 //static files
-app.use(express.static('.src/public'))
+app.use('/img', express.static(path.join(__dirname, '/src/public/')))
 
 
 app.listen(app.get('port'), () => {

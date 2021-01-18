@@ -2,30 +2,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
-<!-- Button trigger modal -->
+<% if (message.length > 0) { %>
+    <div class="alert alert-success" role="alert">
+        <%= message %> 
+    </div>
+<% } %>
 
-  
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar bonificacion</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="/cotizacion/add_bonificacion/ " method="post">
-        <div class="modal-body">
-            <div class="container">
-                    <input type="text" class="form-control" placeholder="10 cuñas por dia, 3 dias adicionales...">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar bonificacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/cotizacion/add_bonificacion/<%= data1[0].cotizacion_id %> " method="POST">
+                <div class="modal-body">
+                    <div class="container">
+                        <textarea class="form-control" name="bonificacion" id="" cols="30" rows="3" placeholder="10 cuñas por dia, 3 dias adicionales..."></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Añadir bonificacion</button>
-            </div>
-        </form>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir o editar bonificacion</button>
+                </div>
+            </form>
+        </div>
       </div>
     </div>
   </div>
@@ -33,7 +37,7 @@
 <div class="container-fluid p-4">
     <div class="row">
         <div class="col-md-4 my-1">
-            <button id="pdf" class="btn btn-primary btn-lg btn-block">Generar</button>
+            <button id="pdf" class="btn btn-primary btn-lg btn-block">Generar .pdf</button>
         </div>
         <div class="col-md-4 my-1">
             <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
@@ -54,7 +58,7 @@
                 <div class="row ">
                     <div class="col-6 ">
                         <section class='font-weight-bold text-left'>
-                            <h1 style="color:darkred" class="font-weight-bold">Star Production's</h1>
+                            <h1 style="color:darkred; font-size:calc(23px + 1.2vw)" class="font-weight-bold">Star Production's</h1>
                         </section>
                     </div>
                     <div class="col-6">
@@ -76,12 +80,12 @@
             <div class="container ">
                 <div class="container border-bottom my-4 pb-4">
                     <div class="row">
-                        <div class="col-6">
-                            <h5>Fecha de cotizacion: <%= data1[0].fecha.toUTCString().split('GMT')[0] %></h5>
+                        <div class="col-md-6 col-sm-12">
+                            <h5>Fecha de cotizacion: </h5>
                             <h5>Bonificacion: <%= data1[0].bonificacion%></h5>
                             <h5>Total: B/. <%= data1[0].total_cotizacion%></h5>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6 col-sm-12">
                             <h5>Cliente: <%= data1[0].nombre %></h5>
                             <h5>Tipo: <%= data1[0].tipo %></h5>
                             <h5>Contacto: <%= data1[0].contacto %></h5>
@@ -103,7 +107,8 @@
                                 <li><h5>Dias pautados: <%=data2[i].dias_pautados%></h5></li>
                                 <li><h5>Precio X dia: B/. <%=data2[i].precio_dia%></h5></li>
                                 <li><h5>Emisora: <%=data2[i].emisora%></h5></li>
-                                <li><h5>Fecha de inicio: <%=data2[i].fecha_inicio.toUTCString().split('GMT')[0]%></h5></li>
+                                <li><h5>Fecha de inicio: <%=data2[i].fecha_inicio.toUTCString().split('2021',)[0]%> 2021</h5></li>
+                                <li><h5>Fecha de inicio: <%=data2[i].fecha_inicio%></h5></li>
                                 <li><h5>Fecha de finalizacion: <%=data2[i].fecha_final.toUTCString().split('GMT')[0]%></h5></li>
                                 <li><h5>Sub total: B/.<%=data2[i].Total%></h5></li>  
                                 <ui><h5 class="mt-3" style="font-size:16px">Detalles: <%=data2[i].detalles%></h5></ui>
@@ -115,8 +120,9 @@
 
         <div class="container border-top py-3 text-right">
             <h2>Bonificacion: <%= data1[0].bonificacion%></h2>
-            <h2>Total: <%= data1[0].total%></h2>
+            <h2 >Total:  <span class="font-weight-bold">B/. <%= data1[0].total_cotizacion%></span></h2>
         </div>
+        <img src="../../public/img/Blast_logo.png" alt="" srcset="">
     </div>
 </div>
 
@@ -124,6 +130,9 @@
 
 
 <script>
+    var str = "<%=data2[0].fecha_inicio%>"
+    console.log(str.substr(0,15));
+
     const back = document.getElementById('backward');
     back.addEventListener('click',() => {
         history.back()
@@ -157,7 +166,7 @@
           pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
         }
         
-          pdf.save("Cotizacion # <%=data1[0].cotizacion_id %>.pdf");
+          pdf.save("Cotizacion # <%=data1[0].cotizacion_id %> - <%= data1[0].nombre %>.pdf");
           });
       })
 

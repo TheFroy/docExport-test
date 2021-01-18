@@ -36,6 +36,7 @@ cotizacion.getDetalles = (req, res) => {
                     res.render('cotizacionDetalles', {
                         data1: rows1,
                         data2: rows2,
+                        message: req.flash('succBonificacion')
                     })
                 })
             })
@@ -118,9 +119,11 @@ cotizacion.add_bonificacion = (req, res) => {
         req.getConnection((err, conn) =>{
            if(!err){
                // CODIGO COMENTADO PARA QUE NO SE AGREGUEN DATOS DE PRUEBA
-                const query = conn.query("insert into cotizacion set ? where id = ?", [data,id], (err, rows1)=>{
+                const query = conn.query("UPDATE cotizacion set ? where id = ?", [data,parseInt(id)], (err, rows1)=>{
+                    console.log(query);
                     if (!err) {
                         res.redirect('/cotizacion/'+id)
+                        req.flash('succBonificacion', 'Bonificación agregada correcamente!')
                     }
                     else{
                         res.json(err)
